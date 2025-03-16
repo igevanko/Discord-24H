@@ -14,10 +14,10 @@ jobs:
         run: npm install
       - name: Commit package-lock.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add package-lock.json
           git commit -m "Auto-generate package-lock.json" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${GH_PAT}@github.com/igevanko/Discord-24H.git main
