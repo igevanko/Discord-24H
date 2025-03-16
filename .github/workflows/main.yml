@@ -13,9 +13,11 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Commit package-lock.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add package-lock.json
-          git commit -m "Auto-generate package-lock.json"
-          git push origin main
+          git commit -m "Auto-generate package-lock.json" || echo "No changes to commit"
+          git push
